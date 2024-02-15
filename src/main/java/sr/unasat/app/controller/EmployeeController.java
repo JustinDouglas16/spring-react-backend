@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import sr.unasat.app.dto.EmployeeDto;
 import sr.unasat.app.service.EmployeeService;
 
+import java.util.List;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/employees")
@@ -26,5 +28,12 @@ public class EmployeeController {
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable("id") Long employeeId) {
         EmployeeDto employeeDto = employeeService.getEmployeeById(employeeId);
         return ResponseEntity.ok(employeeDto);
+    }
+
+    // build get all employees rest api
+    @GetMapping
+    public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
+        List<EmployeeDto> employees = employeeService.getAllEmployees();
+        return ResponseEntity.ok(employees);
     }
 }

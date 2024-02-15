@@ -9,6 +9,9 @@ import sr.unasat.app.mapper.EmployeeMapper;
 import sr.unasat.app.repository.EmployeeRepository;
 import sr.unasat.app.service.EmployeeService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
@@ -31,5 +34,19 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Employee does not exist with the given id: " + employeeId));
         return EmployeeMapper.mapToEmployeeDto(employee);
+    }
+
+    @Override
+    public List<EmployeeDto> getAllEmployees() {
+
+        List<Employee> employees = employeeRepository.findAll();
+
+        return employees.stream()
+                .map(EmployeeMapper::mapToEmployeeDto)
+                .collect(Collectors.toList());
+
+//        return employees.stream()
+//                .map((employee)-> EmployeeMapper.mapToEmployeeDto(employee))
+//                .collect(Collectors.toList());
     }
 }
