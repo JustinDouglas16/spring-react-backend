@@ -9,6 +9,7 @@ import sr.unasat.app.service.EmployeeService;
 
 import java.util.List;
 
+@CrossOrigin
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/employees")
@@ -45,5 +46,14 @@ public class EmployeeController {
         EmployeeDto employeeDto = employeeService.updateEmployee(employeeId, updatedEmployee);
 
         return ResponseEntity.ok(employeeDto);
+    }
+
+    // build delete rest api
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable("id") Long employeeId) {
+
+        employeeService.deleteEmployee(employeeId);
+
+        return ResponseEntity.ok("Employee deleted successfully!");
     }
 }
